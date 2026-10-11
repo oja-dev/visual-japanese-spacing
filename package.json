@@ -1,0 +1,109 @@
+{
+  "name": "visual-japanese-spacing",
+  "displayName": "Visual Japanese Spacing",
+  "description": "Display-only Japanese/ASCII spacing in the editor without changing text.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "visualJapaneseSpacing.enable",
+        "title": "Visual Japanese Spacing: Enable"
+      },
+      {
+        "command": "visualJapaneseSpacing.disable",
+        "title": "Visual Japanese Spacing: Disable"
+      },
+      {
+        "command": "visualJapaneseSpacing.openSettings",
+        "title": "Visual Japanese Spacing: Open Settings"
+      }
+    ],
+    "configuration": {
+      "title": "Visual Japanese Spacing",
+      "properties": {
+        "visualJapaneseSpacing.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Enable visual spacing in the selected languages without editing document text."
+        },
+        "visualJapaneseSpacing.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "markdown",
+            "plaintext"
+          ],
+          "scope": "resource",
+          "description": "Language IDs in which to show gaps. Use * for all languages."
+        },
+        "visualJapaneseSpacing.includeNumbers": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Also add visual gaps at Japanese/ASCII digit boundaries."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "npm run clean && tsc -p .",
+    "typecheck": "tsc -p . --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "lint": "eslint src scripts",
+    "test": "npm run compile && npm run compile:test && node out-test/test/runTests.js",
+    "check": "npm run format:check && npm run typecheck && npm run lint && npm test",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "node scripts/clean.cjs",
+    "compile:test": "tsc -p tsconfig.test.json"
+  },
+  "devDependencies": {
+    "@types/mocha": "10.0.10",
+    "@types/node": "22.20.5",
+    "@types/sinon": "17.0.4",
+    "@types/vscode": "1.100.0",
+    "@vscode/test-electron": "2.5.2",
+    "@vscode/vsce": "4.0.0",
+    "eslint": "10.12.0",
+    "mocha": "11.7.5",
+    "prettier": "3.9.10",
+    "sinon": "21.0.0",
+    "typescript": "6.0.2",
+    "typescript-eslint": "8.71.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oja-dev/visual-japanese-spacing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oja-dev/visual-japanese-spacing/issues"
+  }
+}
